@@ -1,6 +1,7 @@
 package org.chess.board;
 
-import org.chess.Piece;
+import com.google.common.collect.ImmutableMap;
+import org.chess.piece.Piece;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,16 +14,19 @@ public abstract class Tile {
     private static final Map<Integer, EmptyTile> EMPTY_TILE_MAP = createAllEmptyTiles();
     protected final int coordinate;
 
-    Tile(int coordinate) {
+    protected Tile(final int coordinate) {
         this.coordinate = coordinate;
     }
 
+    private static Tile CreateTile(final int coordinate,final Piece piece){
+        return piece!=null? new OccupiedTile(coordinate,piece) : EMPTY_TILE_MAP.get(coordinate);
+    }
     private static Map<Integer, EmptyTile> createAllEmptyTiles() {
         final Map<Integer, EmptyTile> emptyTileMap = new HashMap<>();
         for (int i = 0; i < 64; i++) {
             emptyTileMap.put(i, new EmptyTile(i));
         }
-        return emptyTileMap;
+        return ImmutableMap.copyOf(emptyTileMap);
     }
 
     public abstract boolean isTileEmpty();

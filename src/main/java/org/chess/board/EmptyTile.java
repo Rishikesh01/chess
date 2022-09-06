@@ -1,6 +1,6 @@
 package org.chess.board;
 
-import org.chess.Piece;
+import org.chess.piece.Piece;
 
 /**
  * @author Rishikesh
@@ -8,7 +8,7 @@ import org.chess.Piece;
  */
 public final class EmptyTile extends Tile {
 
-    EmptyTile(int coordinate) {
+   EmptyTile(int coordinate) {
         super(coordinate);
     }
 

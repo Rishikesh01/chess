@@ -1,6 +1,6 @@
 package org.chess.board;
 
-import org.chess.Piece;
+import org.chess.piece.Piece;
 
 /**
  * @author Rishikesh
