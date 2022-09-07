@@ -9,6 +9,9 @@ import org.chess.board.Tile;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.chess.board.Move.AttackMove;
+import static org.chess.board.Move.MajorMove;
+
 /**
  * @author Rishikesh
  * @project chess
@@ -50,12 +53,12 @@ public class Knight extends Piece {
             if (BoardUtils.isValidTileCoordinate(candidateDestCoordinate)) {
                 final Tile destCoordinate = board.getTile(candidateDestCoordinate);
                 if (destCoordinate.isTileEmpty()) {
-                    legalMoves.add(new Move(board, this, candidateDestCoordinate));
+                    legalMoves.add(new MajorMove(board, this, candidateDestCoordinate));
                 } else {
                     final Piece pieceDest = destCoordinate.getPiece();
                     final Color color = pieceDest.getPieceColor();
                     if (this.pieceColor != color) {
-                        legalMoves.add(new Move(board, this, candidateDestCoordinate));
+                        legalMoves.add(new AttackMove(board, this, candidateDestCoordinate, pieceDest));
                     }
                 }
             }
