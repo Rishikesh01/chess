@@ -13,7 +13,7 @@ public abstract class Piece {
     protected final int piecePosition;
     protected final Color pieceColor;
 
-    protected Piece(final int piecePosition,final Color pieceColor){
+     Piece(final int piecePosition,final Color pieceColor){
         this.pieceColor=pieceColor;
         this.piecePosition = piecePosition;
     }
