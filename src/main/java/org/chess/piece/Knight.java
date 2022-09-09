@@ -1,6 +1,7 @@
 package org.chess.piece;
 
 import com.google.common.collect.ImmutableList;
+import org.chess.Color;
 import org.chess.board.Board;
 import org.chess.board.BoardUtils;
 import org.chess.board.Move;
@@ -42,14 +43,14 @@ public class Knight extends Piece {
 
     @Override
     public List<Move> calculateLegalMoves(Board board) {
-        int candidateDestCoordinate;
         final List<Move> legalMoves = new ArrayList<>();
         for (final int currentOffSet : CANDIDATE_MOVE_COORDINATE) {
-            candidateDestCoordinate = this.piecePosition + currentOffSet;
             if (isFirstColumnExclusion(this.piecePosition, currentOffSet) || isSecondColumnExclusion(this.piecePosition, currentOffSet)
                     || isSeventhColumnExclusion(this.piecePosition, currentOffSet) || isEightColumnExclusion(this.piecePosition, currentOffSet)) {
                 continue;
             }
+            int candidateDestCoordinate = this.piecePosition + currentOffSet;
+
             if (BoardUtils.isValidTileCoordinate(candidateDestCoordinate)) {
                 final Tile destCoordinate = board.getTile(candidateDestCoordinate);
                 if (destCoordinate.isTileEmpty()) {

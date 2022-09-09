@@ -1,6 +1,7 @@
 package org.chess.piece;
 
 import com.google.common.collect.ImmutableList;
+import org.chess.Color;
 import org.chess.board.Board;
 import org.chess.board.BoardUtils;
 import org.chess.board.Move;
@@ -14,12 +15,12 @@ import java.util.List;
  * @project chess
  */
 
-public class Rook extends Piece{
-     Rook(int piecePosition, Color pieceColor) {
+public class Rook extends Piece {
+    private final static int[] CANDIDATE_MOVES_BISHOP = {-8, -1, 1, 8};
+
+    Rook(int piecePosition, Color pieceColor) {
         super(piecePosition, pieceColor);
     }
-
-    private final static int[] CANDIDATE_MOVES_BISHOP = {-8, -1, 1, 8};
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {
         return BoardUtils.FIRST_COLUMN[currentPos] && (offset == 1);
@@ -33,9 +34,8 @@ public class Rook extends Piece{
     public List<Move> calculateLegalMoves(Board board) {
         final List<Move> legalMoves = new ArrayList<>();
 
-        int candidateDestCoordinate = this.piecePosition;
         for (final int offSet : CANDIDATE_MOVES_BISHOP) {
-
+            int candidateDestCoordinate = this.piecePosition;
             while (BoardUtils.isValidTileCoordinate(candidateDestCoordinate)) {
                 candidateDestCoordinate += offSet;
                 if (isEightColumnExclusion(candidateDestCoordinate, offSet) | isFirstColumnExclusion(candidateDestCoordinate, offSet))

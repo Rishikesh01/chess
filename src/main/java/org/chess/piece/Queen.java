@@ -1,6 +1,7 @@
 package org.chess.piece;
 
 import com.google.common.collect.ImmutableList;
+import org.chess.Color;
 import org.chess.board.Board;
 import org.chess.board.BoardUtils;
 import org.chess.board.Move;
@@ -34,9 +35,8 @@ public class Queen extends Piece {
     public List<Move> calculateLegalMoves(Board board) {
         final List<Move> legalMoves = new ArrayList<>();
 
-        int candidateDestCoordinate = this.piecePosition;
         for (final int offSet : CANDIDATE_MOVES_BISHOP) {
-
+            int candidateDestCoordinate = this.piecePosition;
             while (BoardUtils.isValidTileCoordinate(candidateDestCoordinate)) {
                 candidateDestCoordinate += offSet;
                 if (isEightColumnExclusion(candidateDestCoordinate, offSet) | isFirstColumnExclusion(candidateDestCoordinate, offSet))
