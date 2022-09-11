@@ -19,8 +19,8 @@ import java.util.List;
 public class Bishop extends Piece {
     private final static int[] CANDIDATE_MOVES_BISHOP = {-9, -7, 7, 9};
 
-    Bishop(int piecePosition, Color pieceColor) {
-        super(piecePosition, pieceColor);
+    public Bishop(int piecePosition, Color pieceColor) {
+        super(piecePosition, pieceColor,PieceType.BISHOP);
     }
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {
@@ -59,5 +59,10 @@ public class Bishop extends Piece {
             }
         }
         return ImmutableList.copyOf(legalMoves);
+    }
+
+    @Override
+    public Bishop movePiece(Move move) {
+       return new Bishop(move.getDestinationCoordinate(), move.getMovedPiece().getPieceColor());
     }
 }

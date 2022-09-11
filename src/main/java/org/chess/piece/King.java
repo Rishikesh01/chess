@@ -17,8 +17,8 @@ import java.util.List;
 public class King extends Piece {
     public final static int[] CANDIDATE_MOVES_COORDINATE = {-9, -8, -1, 1, 7, 8, 9};
 
-    King(int piecePosition, Color pieceColor) {
-        super(piecePosition, pieceColor);
+    public King(int piecePosition, Color pieceColor) {
+        super(piecePosition, pieceColor, PieceType.KING);
     }
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {
@@ -56,5 +56,11 @@ public class King extends Piece {
             }
         }
         return ImmutableList.copyOf(legalMoves);
+    }
+
+    @Override
+    public King movePiece(Move move) {
+        return new King(move.getDestinationCoordinate(), move.getMovedPiece().getPieceColor());
+
     }
 }

@@ -19,8 +19,8 @@ public class Queen extends Piece {
     private final static int[] CANDIDATE_MOVES_BISHOP = {-9, -8, -7, -1, 1, 7, 8, 9};
 
 
-    Queen(int piecePosition, Color pieceColor) {
-        super(piecePosition, pieceColor);
+    public Queen(int piecePosition, Color pieceColor) {
+        super(piecePosition, pieceColor, PieceType.QUEEN);
     }
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {
@@ -59,5 +59,11 @@ public class Queen extends Piece {
             }
         }
         return ImmutableList.copyOf(legalMoves);
+    }
+
+    @Override
+    public Queen movePiece(Move move) {
+        return new Queen(move.getDestinationCoordinate(), move.getMovedPiece().getPieceColor());
+
     }
 }

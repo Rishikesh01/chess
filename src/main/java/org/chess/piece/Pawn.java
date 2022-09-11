@@ -16,8 +16,8 @@ import java.util.List;
 public class Pawn extends Piece {
     public static int[] CANDIDATE_MOVES_COORDINATES = {8, 16};
 
-    Pawn(int piecePosition, Color pieceColor) {
-        super(piecePosition, pieceColor);
+    public Pawn(int piecePosition, Color pieceColor) {
+        super(piecePosition, pieceColor,PieceType.PAWN);
     }
 
     @Override
@@ -60,5 +60,11 @@ public class Pawn extends Piece {
             }
         }
         return ImmutableList.copyOf(legalMoves);
+    }
+
+    @Override
+    public Pawn movePiece(Move move) {
+        return new Pawn(move.getDestinationCoordinate(), move.getMovedPiece().getPieceColor());
+
     }
 }

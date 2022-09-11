@@ -18,7 +18,7 @@ public abstract class Tile {
         this.coordinate = coordinate;
     }
 
-    private static Tile CreateTile(final int coordinate,final Piece piece){
+    public static Tile createTile(final int coordinate,final Piece piece){
         return piece!=null? new OccupiedTile(coordinate,piece) : EMPTY_TILE_MAP.get(coordinate);
     }
     private static Map<Integer, EmptyTile> createAllEmptyTiles() {

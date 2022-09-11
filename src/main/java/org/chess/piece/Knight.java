@@ -1,6 +1,7 @@
 package org.chess.piece;
 
 import com.google.common.collect.ImmutableList;
+import org.checkerframework.checker.units.qual.K;
 import org.chess.Color;
 import org.chess.board.Board;
 import org.chess.board.BoardUtils;
@@ -21,8 +22,8 @@ public class Knight extends Piece {
 
     private static final int[] CANDIDATE_MOVE_COORDINATE = {-17, -15, -6, 6, 15, 17};
 
-    protected Knight(final int piecePosition, final Color pieceColor) {
-        super(piecePosition, pieceColor);
+    public Knight(final int piecePosition, final Color pieceColor) {
+        super(piecePosition, pieceColor,PieceType.KNIGHT);
     }
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {
@@ -66,6 +67,11 @@ public class Knight extends Piece {
         }
         return ImmutableList.copyOf(legalMoves);
 
+    }
+
+    @Override
+    public Piece movePiece(Move move) {
+        return new Knight(move.getDestinationCoordinate(), move.getMovedPiece().getPieceColor());
     }
 
 }

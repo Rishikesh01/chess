@@ -18,8 +18,8 @@ import java.util.List;
 public class Rook extends Piece {
     private final static int[] CANDIDATE_MOVES_BISHOP = {-8, -1, 1, 8};
 
-    Rook(int piecePosition, Color pieceColor) {
-        super(piecePosition, pieceColor);
+    public Rook(int piecePosition, Color pieceColor) {
+        super(piecePosition, pieceColor, PieceType.ROOK);
     }
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {
@@ -58,5 +58,11 @@ public class Rook extends Piece {
             }
         }
         return ImmutableList.copyOf(legalMoves);
+    }
+
+    @Override
+    public Rook movePiece(Move move) {
+        return new Rook(move.getDestinationCoordinate(), move.getMovedPiece().getPieceColor());
+
     }
 }
