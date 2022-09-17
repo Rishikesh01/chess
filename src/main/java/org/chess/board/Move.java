@@ -1,5 +1,6 @@
 package org.chess.board;
 
+import org.chess.piece.Pawn;
 import org.chess.piece.Piece;
 
 /**
@@ -162,6 +163,26 @@ public abstract class Move {
         public PawnJump(Board board, Piece movedPiece, int destCoordinate) {
             super(board, movedPiece, destCoordinate);
         }
+
+        @Override
+        public Board execute(){
+            final Board.Builder builder = new Board.Builder();
+            for(final Piece piece:this.board.currentPlayer().getActivePieces()){
+                if(!this.movedPiece.equals(piece)){
+                    builder.setPiece(piece);
+                }
+            }
+            for (final Piece piece :this.board.currentPlayer().getActivePieces()){
+builder.setPiece(piece);
+            }
+
+            final Pawn movePawn = (Pawn) this.movedPiece.movePiece(this);
+            builder.setPiece(movePawn);
+            builder.setEnPassantPawn(movePawn);
+            builder.setMoveMaker(this.board.currentPlayer().getOpponent().getColor());
+            return builder.build();
+        }
+
     }
 
     static abstract class CastleMove extends Move {

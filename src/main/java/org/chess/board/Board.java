@@ -141,6 +141,7 @@ public class Board {
     public static class Builder {
         Map<Integer, Piece> boardMap;
         Color nextMoveMaker;
+        Pawn pawnEnPassant;
 
         public Builder() {
             this.boardMap = new HashMap<>();
@@ -158,6 +159,10 @@ public class Board {
 
         public Board build() {
             return new Board(this);
+        }
+
+        public void setEnPassantPawn(Pawn pawnEnPassant) {
+            this.pawnEnPassant = pawnEnPassant;
         }
     }
 }
