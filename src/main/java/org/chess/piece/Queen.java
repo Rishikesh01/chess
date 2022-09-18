@@ -38,9 +38,9 @@ public class Queen extends Piece {
         for (final int offSet : CANDIDATE_MOVES_BISHOP) {
             int candidateDestCoordinate = this.piecePosition;
             while (BoardUtils.isValidTileCoordinate(candidateDestCoordinate)) {
-                candidateDestCoordinate += offSet;
                 if (isEightColumnExclusion(candidateDestCoordinate, offSet) | isFirstColumnExclusion(candidateDestCoordinate, offSet))
                     break;
+                candidateDestCoordinate += offSet;
                 if (BoardUtils.isValidTileCoordinate(candidateDestCoordinate)) {
                     final Tile destCoordinate = board.getTile(candidateDestCoordinate);
                     if (destCoordinate.isTileEmpty()) {

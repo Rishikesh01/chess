@@ -23,7 +23,7 @@ public class Rook extends Piece {
     }
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {
-        return BoardUtils.FIRST_COLUMN[currentPos] && (offset == 1);
+        return BoardUtils.FIRST_COLUMN[currentPos] && (offset == -1);
     }
 
     private static boolean isEightColumnExclusion(final int currentPos, final int offset) {
@@ -37,9 +37,10 @@ public class Rook extends Piece {
         for (final int offSet : CANDIDATE_MOVES_BISHOP) {
             int candidateDestCoordinate = this.piecePosition;
             while (BoardUtils.isValidTileCoordinate(candidateDestCoordinate)) {
-                candidateDestCoordinate += offSet;
+
                 if (isEightColumnExclusion(candidateDestCoordinate, offSet) | isFirstColumnExclusion(candidateDestCoordinate, offSet))
                     break;
+                candidateDestCoordinate += offSet;
                 if (BoardUtils.isValidTileCoordinate(candidateDestCoordinate)) {
                     final Tile destCoordinate = board.getTile(candidateDestCoordinate);
                     if (destCoordinate.isTileEmpty()) {
