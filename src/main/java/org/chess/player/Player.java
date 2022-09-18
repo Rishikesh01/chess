@@ -1,6 +1,7 @@
 package org.chess.player;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import org.chess.Color;
 import org.chess.board.Board;
 import org.chess.board.Move;
@@ -26,7 +27,9 @@ public abstract class Player {
     protected Player(Board board, Collection<Move> legalMoves, Collection<Move> opponentLegalMoves) {
         this.board = board;
         this.playerKing = establishKing();
-        this.legalMoves = legalMoves;
+        this.legalMoves = ImmutableList.copyOf(
+                Iterables.concat(legalMoves, calculateKingCastles(legalMoves, opponentLegalMoves)
+                ));
         this.isInCheck = !Player.calculateAttackOnTile(this.playerKing.getPiecePosition(), opponentLegalMoves).isEmpty();
     }
 

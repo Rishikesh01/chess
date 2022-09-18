@@ -2,6 +2,7 @@ package org.chess.board;
 
 import org.chess.piece.Pawn;
 import org.chess.piece.Piece;
+import org.chess.piece.Rook;
 
 /**
  * @author Rishikesh
@@ -165,15 +166,15 @@ public abstract class Move {
         }
 
         @Override
-        public Board execute(){
+        public Board execute() {
             final Board.Builder builder = new Board.Builder();
-            for(final Piece piece:this.board.currentPlayer().getActivePieces()){
-                if(!this.movedPiece.equals(piece)){
+            for (final Piece piece : this.board.currentPlayer().getActivePieces()) {
+                if (!this.movedPiece.equals(piece)) {
                     builder.setPiece(piece);
                 }
             }
-            for (final Piece piece :this.board.currentPlayer().getActivePieces()){
-builder.setPiece(piece);
+            for (final Piece piece : this.board.currentPlayer().getActivePieces()) {
+                builder.setPiece(piece);
             }
 
             final Pawn movePawn = (Pawn) this.movedPiece.movePiece(this);
@@ -186,22 +187,67 @@ builder.setPiece(piece);
     }
 
     static abstract class CastleMove extends Move {
+        protected final Rook castleRook;
+        protected final int castleRookStartPos;
+        protected final int castleRookDes;
 
-        public CastleMove(Board board, Piece movedPiece, int destCoordinate) {
+        public CastleMove(Board board, Piece movedPiece,
+                          int destCoordinate,
+                          Rook castleRook,
+                          int castleRookStartPos,
+                          int castleRookDes) {
             super(board, movedPiece, destCoordinate);
+            this.castleRook = castleRook;
+            this.castleRookStartPos = castleRookStartPos;
+            this.castleRookDes = castleRookDes;
+        }
+
+        public Rook getCastleRook() {
+            return this.castleRook;
+        }
+
+        @Override
+        public boolean isCastlingMove() {
+            return true;
+        }
+
+        @Override
+        public Board execute() {
+            final Board.Builder builder = new Board.Builder();
+            for (final Piece piece : this.board.currentPlayer().getActivePieces()) {
+                if (!this.movedPiece.equals(piece) && !this.castleRook.equals(piece)) {
+                    builder.setPiece(piece);
+                }
+            }
+            for (final Piece piece : this.board.currentPlayer().getActivePieces()) {
+                builder.setPiece(piece);
+            }
+            builder.setPiece(this.movedPiece.movePiece(this));
+            builder.setPiece(new Rook(this.castleRookDes,
+                    this.castleRook.getPieceColor()));
+            builder.setMoveMaker(this.board.currentPlayer().getOpponent().getColor());
+            return builder.build();
         }
     }
 
     public static class KingSideCastleMove extends CastleMove {
-
-        public KingSideCastleMove(Board board, Piece movedPiece, int destCoordinate) {
-            super(board, movedPiece, destCoordinate);
+        public KingSideCastleMove(Board board,
+                                  Piece movedPiece,
+                                  int destCoordinate,
+                                  Rook castleRook,
+                                  int castleRookStartPos,
+                                  int castleRookDes) {
+            super(board, movedPiece, destCoordinate, castleRook, castleRookStartPos, castleRookDes);
         }
     }
 
     public static class QueenSideCastleMove extends CastleMove {
-        public QueenSideCastleMove(Board board, Piece movedPiece, int destCoordinate) {
-            super(board, movedPiece, destCoordinate);
+        public QueenSideCastleMove(Board board,
+                                   Piece movedPiece,
+                                   int destCoordinate, Rook castleRook,
+                                   int castleRookStartPos,
+                                   int castleRookDes) {
+            super(board, movedPiece, destCoordinate, castleRook, castleRookStartPos, castleRookDes);
         }
     }
 

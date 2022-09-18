@@ -33,4 +33,7 @@ public abstract class Tile {
 
     public abstract Piece getPiece();
 
+    public int getTitleCoordinate() {
+    return this.coordinate;
+    }
 }

@@ -5,6 +5,7 @@ import org.chess.board.Board;
 import org.chess.board.Move;
 import org.chess.board.Tile;
 import org.chess.piece.Piece;
+import org.chess.piece.Rook;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,7 +46,15 @@ public class BlackPlayer extends Player {
                 if (!rookTile.isTileEmpty() && rookTile.getPiece().isFirstMove()) {
                     if (Player.calculateAttackOnTile(5, opponentsLegalMoves).isEmpty() &&
                             Player.calculateAttackOnTile(6, opponentsLegalMoves).isEmpty() && rookTile.getPiece().getPieceType().isRook()) {
-                        kingCastles.add(null);
+                        kingCastles.add(
+                                new Move.KingSideCastleMove(
+                                        this.board,
+                                        this.playerKing,
+                                        6,
+                                        (Rook) rookTile.getPiece(),
+                                        rookTile.getTitleCoordinate(),
+                                        5)
+                        );
                     }
                 }
             }
@@ -54,7 +63,14 @@ public class BlackPlayer extends Player {
                     && this.board.getTile(3).isTileEmpty()) {
                 final Tile rookTile = this.board.getTile(0);
                 if (!rookTile.isTileEmpty() && rookTile.getPiece().isFirstMove()) {
-                    kingCastles.add(null);
+                    kingCastles.add(new Move.QueenSideCastleMove(
+                            this.board,
+                            this.playerKing,
+                            2,
+                            (Rook) rookTile.getPiece(),
+                            rookTile.getTitleCoordinate(),
+                            3
+                    ));
                 }
             }
         }
