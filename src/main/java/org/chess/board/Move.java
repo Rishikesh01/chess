@@ -70,8 +70,6 @@ public abstract class Move {
                 builder.setPiece(piece);
             }
         }
-
-
         for (final Piece piece : this.board.currentPlayer().getOpponent().getActivePieces()) {
             builder.setPiece(piece);
         }

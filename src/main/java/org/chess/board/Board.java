@@ -27,14 +27,14 @@ public class Board {
 
     private Board(Builder builder) {
         this.gameBoard = createGameBoard(builder);
-        this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer(), this.blackPlayer());
         this.whitePieces = calculateActivePieces(this.gameBoard, Color.WHITE);
         this.blackPieces = calculateActivePieces(this.gameBoard, Color.BLACK);
         final Collection<Move> whiteLegalMoves = calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackLegalMoves = calculateLegalMoves(this.blackPieces);
-
         this.whitePlayer = new WhitePlayer(this, whiteLegalMoves, blackLegalMoves);
         this.blackPlayer = new BlackPlayer(this, whiteLegalMoves, blackLegalMoves);
+        this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer(), this.blackPlayer());
+
     }
 
     private static Collection<Piece> calculateActivePieces(List<Tile> gameBoard, Color color) {
@@ -43,8 +43,9 @@ public class Board {
         for (final Tile tile : gameBoard) {
             if (!tile.isTileEmpty()) {
                 final Piece piece = tile.getPiece();
-                if (piece.getPieceColor() == color) ;
-                activePieces.add(piece);
+                if (piece.getPieceColor() == color) {
+                    activePieces.add(piece);
+                }
             }
         }
 
