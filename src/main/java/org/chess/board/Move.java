@@ -24,8 +24,8 @@ public abstract class Move {
     @Override
     public int hashCode() {
         int hash = 1;
-        hash = 99 * hash + this.destCoordinate;
-        hash = 99 * hash + this.movedPiece.hashCode();
+        hash = 31 * hash + this.destCoordinate;
+        hash = 31 * hash + this.movedPiece.hashCode();
         return hash;
     }
 
