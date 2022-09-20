@@ -16,7 +16,7 @@ public enum PieceType {
             return false;
         }
     },
-    KNIGHT("N"){
+    KNIGHT("H"){
         @Override
         public boolean isKing() {
             return false;
