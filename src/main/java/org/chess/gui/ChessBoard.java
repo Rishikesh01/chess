@@ -123,7 +123,6 @@ public class ChessBoard {
                             destTile = board.getTile(tileId);
                             final Move move = Move.MoveFactory.createMove(board, srcTile.getTitleCoordinate(), destTile.getTitleCoordinate());
                             final MoveTransition transition = board.currentPlayer().makeMove(move);
-
                             if (transition.getMoveStatus().isDone()) {
                                 board = transition.getTransitionBoard();
                             }

@@ -43,7 +43,6 @@ public class Pawn extends Piece {
                     if (!board.getTile(candidateDestCoordinate).isTileEmpty()) {
                         final Piece pieceOnCandidate = board.getTile(candidateDestCoordinate).getPiece();
                         if (this.pieceColor != pieceOnCandidate.getPieceColor()) {
-                            //TODO more to do here
                             legalMoves.add(new Move.MajorMove(board, this, candidateDestCoordinate));
                         }
                     }
@@ -52,9 +51,7 @@ public class Pawn extends Piece {
                                 (BoardUtils.FIRST_COLUMN[this.piecePosition] && this.pieceColor.isBlack())))) {
                     final Piece pieceOnCandidate = board.getTile(candidateDestCoordinate).getPiece();
                     if (this.pieceColor != pieceOnCandidate.getPieceColor()) {
-                        //TODO more to do here
                         legalMoves.add(new Move.MajorMove(board, this, candidateDestCoordinate));
-
                     }
                 }
             }

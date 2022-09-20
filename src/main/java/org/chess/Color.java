@@ -46,7 +46,7 @@ public enum Color {
 
         @Override
         public Player choosePlayer(Player whitePlayer, Player blackPlayer) {
-            return blackPlayer;
+            return whitePlayer;
         }
     };
 
