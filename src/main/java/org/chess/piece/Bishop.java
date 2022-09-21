@@ -10,6 +10,7 @@ import org.chess.board.Move.MajorMove;
 import org.chess.board.Tile;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public List<Move> calculateLegalMoves(Board board) {
+    public Collection<Move> calculateLegalMoves(Board board) {
         final List<Move> legalMoves = new ArrayList<>();
 
         for (final int offSet : CANDIDATE_MOVES_BISHOP) {

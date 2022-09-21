@@ -8,6 +8,7 @@ import org.chess.board.Move;
 import org.chess.board.Tile;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.chess.board.Move.AttackMove;
@@ -42,7 +43,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public List<Move> calculateLegalMoves(Board board) {
+    public Collection<Move> calculateLegalMoves(Board board) {
         final List<Move> legalMoves = new ArrayList<>();
         for (final int currentOffSet : CANDIDATE_MOVE_COORDINATE) {
             if (isFirstColumnExclusion(this.piecePosition, currentOffSet) || isSecondColumnExclusion(this.piecePosition, currentOffSet)

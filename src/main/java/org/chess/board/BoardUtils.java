@@ -41,10 +41,10 @@ public class BoardUtils {
 
     private static boolean[] initColumn(int colNumber) {
         final boolean[] col = new boolean[BOARD_SIZE];
-        while (colNumber < BOARD_SIZE) {
+        do {
             col[colNumber] = true;
             colNumber += ROW_SIZE;
-        }
+        } while (colNumber < BOARD_SIZE);
         return col;
     }
 

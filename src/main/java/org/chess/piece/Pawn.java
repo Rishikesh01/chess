@@ -7,6 +7,7 @@ import org.chess.board.BoardUtils;
 import org.chess.board.Move;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public List<Move> calculateLegalMoves(final Board board) {
+    public Collection<Move> calculateLegalMoves(final Board board) {
         final List<Move> legalMoves = new ArrayList<>();
 
         for (final int offset : CANDIDATE_MOVES_COORDINATES) {
@@ -54,8 +55,8 @@ public class Pawn extends Piece {
                     }
                 }
             } else if (offset == 9 &&
-                    !((BoardUtils.EIGHTH_COLUMN[this.piecePosition] && this.pieceColor.isWhite()) ||
-                            (BoardUtils.FIRST_COLUMN[this.piecePosition] && this.pieceColor.isBlack()))) {
+                    !((BoardUtils.FIRST_COLUMN[this.piecePosition] && this.pieceColor.isWhite() || //checks piece on 1st column is black
+                            (BoardUtils.EIGHTH_COLUMN[this.piecePosition] && this.pieceColor.isBlack())))) {
                 if (!board.getTile(candidateDestCoordinate).isTileEmpty()) {
                     final Piece pieceOnCandidate = board.getTile(candidateDestCoordinate).getPiece();
                     if (this.pieceColor != pieceOnCandidate.getPieceColor()) {

@@ -4,7 +4,7 @@ import org.chess.Color;
 import org.chess.board.Board;
 import org.chess.board.Move;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @author Rishikesh
@@ -35,7 +35,7 @@ public abstract class Piece {
         return hash;
     }
 
-    public abstract List<Move> calculateLegalMoves(final Board board);
+    public abstract Collection<Move> calculateLegalMoves(final Board board);
 
     public Color getPieceColor() {
         return this.pieceColor;
