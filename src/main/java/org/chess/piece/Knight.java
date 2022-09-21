@@ -1,7 +1,6 @@
 package org.chess.piece;
 
 import com.google.common.collect.ImmutableList;
-import org.checkerframework.checker.units.qual.K;
 import org.chess.Color;
 import org.chess.board.Board;
 import org.chess.board.BoardUtils;
@@ -39,7 +38,7 @@ public class Knight extends Piece {
     }
 
     private static boolean isEightColumnExclusion(final int currentPos, final int offset) {
-        return BoardUtils.EIGHT_COLUMN[currentPos] && (offset == -15 || offset == -6 || offset == 10 || offset == 17);
+        return BoardUtils.EIGHTH_COLUMN[currentPos] && (offset == -15 || offset == -6 || offset == 10 || offset == 17);
     }
 
     @Override

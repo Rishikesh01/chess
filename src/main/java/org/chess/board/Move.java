@@ -79,7 +79,7 @@ public abstract class Move {
     }
 
     private int getCurrentCoordinate() {
-        return this.movedPiece.getPiecePosition();
+         return this.movedPiece.getPiecePosition();
     }
 
     public static class MajorMove extends Move {

@@ -29,9 +29,9 @@ public abstract class Piece {
 
     private int computeHashCode() {
         int hash = pieceType.hashCode();
-        hash = 99 * hash + pieceColor.hashCode();
-        hash = 99 * hash + piecePosition;
-        hash = 99 * hash + (isFirstMove ? 1 : 0);
+        hash = 31 * hash + pieceColor.hashCode();
+        hash = 31 * hash + piecePosition;
+        hash = 31 * hash + (isFirstMove ? 1 : 0);
         return hash;
     }
 
@@ -64,7 +64,8 @@ public abstract class Piece {
             return false;
         }
         final Piece somePiece = (Piece) obj;
-        return piecePosition == somePiece.getPiecePosition() && pieceColor == somePiece.getPieceColor() && pieceType == somePiece.getPieceType() && isFirstMove == somePiece.isFirstMove();
+        return piecePosition == somePiece.getPiecePosition() && pieceColor == somePiece.getPieceColor() &&
+                pieceType == somePiece.getPieceType() && isFirstMove == somePiece.isFirstMove();
     }
 
     @Override

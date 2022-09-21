@@ -32,14 +32,13 @@ public class Board {
         final Collection<Move> whiteLegalMoves = calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackLegalMoves = calculateLegalMoves(this.blackPieces);
         this.whitePlayer = new WhitePlayer(this, whiteLegalMoves, blackLegalMoves);
-        this.blackPlayer = new BlackPlayer(this, whiteLegalMoves, blackLegalMoves);
+        this.blackPlayer = new BlackPlayer(this,whiteLegalMoves,blackLegalMoves);
         this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
 
     }
 
     private static Collection<Piece> calculateActivePieces(List<Tile> gameBoard, Color color) {
         List<Piece> activePieces = new ArrayList<>();
-
         for (final Tile tile : gameBoard) {
             if (!tile.isTileEmpty()) {
                 final Piece piece = tile.getPiece();
@@ -106,9 +105,9 @@ public class Board {
         return this.currentPlayer;
     }
 
-    private Collection<Move> calculateLegalMoves(Collection<Piece> blackPieces) {
+    private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
         final List<Move> legalMoves = new ArrayList<>();
-        for (final Piece piece : blackPieces) {
+        for (final Piece piece : pieces) {
             legalMoves.addAll(piece.calculateLegalMoves(this));
         }
         return ImmutableList.copyOf(legalMoves);
