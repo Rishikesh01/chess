@@ -33,6 +33,7 @@ public class ChessBoard {
     private final Color darkTileColor = Color.decode("#593E1A");
     private final BoardPanel boardPanel;
     private final JFrame gameFrame;
+    private boolean highlightLegalMoves = false;
     private BoardDirection boardDirection;
     private Board board;
     private Tile srcTile;
@@ -81,6 +82,10 @@ public class ChessBoard {
             boardPanel.drawBoard(board);
         });
         preferencesMenu.add(filpBoard);
+        preferencesMenu.addSeparator();
+        final JCheckBoxMenuItem legalMove = new JCheckBoxMenuItem("HighLight legal move", false);
+        legalMove.addActionListener(actionEvent -> highlightLegalMoves = legalMove.isSelected());
+        preferencesMenu.add(legalMove);
         return preferencesMenu;
     }
 
@@ -206,7 +211,7 @@ public class ChessBoard {
         }
 
         private void highLightLegalMoves(final Board board) {
-            if (true) {
+            if (highlightLegalMoves) {
                 for (final Move move : peiceLegalMoves(board)) {
                     if (move.getDestinationCoordinate() == this.tileId) {
                         try {

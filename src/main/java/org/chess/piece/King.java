@@ -19,7 +19,11 @@ public class King extends Piece {
     public final static int[] CANDIDATE_MOVES_COORDINATE = {-9, -8, -1, 1, 7, 8, 9};
 
     public King(int piecePosition, Color pieceColor) {
-        super(piecePosition, pieceColor, PieceType.KING);
+        super(piecePosition, pieceColor, PieceType.KING,true);
+    }
+
+    public King(int piecePosition, Color pieceColor,final boolean isFirstMove) {
+        super(piecePosition, pieceColor, PieceType.KING,isFirstMove);
     }
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {

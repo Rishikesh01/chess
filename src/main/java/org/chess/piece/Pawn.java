@@ -18,7 +18,11 @@ public class Pawn extends Piece {
     public static int[] CANDIDATE_MOVES_COORDINATES = {8, 16, 7, 9};
 
     public Pawn(int piecePosition, Color pieceColor) {
-        super(piecePosition, pieceColor, PieceType.PAWN);
+        super(piecePosition, pieceColor, PieceType.PAWN,true);
+    }
+
+    public Pawn(int piecePosition, Color pieceColor,final  boolean isFirstMove) {
+        super(piecePosition, pieceColor, PieceType.PAWN,isFirstMove);
     }
 
     @Override
@@ -36,8 +40,8 @@ public class Pawn extends Piece {
                 legalMoves.add(new Move.MajorMove(board, this, candidateDestCoordinate));
 
             } else if (offset == 16 && this.isFirstMove() &&
-                    (BoardUtils.SECOND_ROW[this.piecePosition] && this.pieceColor.isBlack()) ||
-                    (BoardUtils.SEVENTH_ROW[this.piecePosition] && this.pieceColor.isWhite())) {
+                    ((BoardUtils.SECOND_ROW[this.piecePosition] && this.pieceColor.isBlack()) ||
+                    (BoardUtils.SEVENTH_ROW[this.piecePosition] && this.pieceColor.isWhite()))) {
 
                 final int behindCandidateDest = this.piecePosition + (this.pieceColor.getDirection() * BoardUtils.ROW_SIZE);
 

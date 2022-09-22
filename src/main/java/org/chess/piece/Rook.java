@@ -20,7 +20,11 @@ public class Rook extends Piece {
     private final static int[] CANDIDATE_MOVES_BISHOP = {-8, -1, 1, 8};
 
     public Rook(int piecePosition, Color pieceColor) {
-        super(piecePosition, pieceColor, PieceType.ROOK);
+        super(piecePosition, pieceColor, PieceType.ROOK, true);
+    }
+
+    public Rook(final int piecePosition, final Color pieceColor, final boolean isFistMove) {
+        super(piecePosition, pieceColor, PieceType.ROOK, isFistMove);
     }
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {

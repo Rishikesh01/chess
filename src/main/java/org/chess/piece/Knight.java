@@ -23,7 +23,11 @@ public class Knight extends Piece {
     private static final int[] CANDIDATE_MOVE_COORDINATE = {-17, -15, -6, 6, 15, 17};
 
     public Knight(final int piecePosition, final Color pieceColor) {
-        super(piecePosition, pieceColor,PieceType.KNIGHT);
+        super(piecePosition, pieceColor,PieceType.KNIGHT,true);
+    }
+
+    public Knight(final int piecePosition, final Color pieceColor,final boolean isFirstMove) {
+        super(piecePosition, pieceColor,PieceType.KNIGHT,isFirstMove);
     }
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {

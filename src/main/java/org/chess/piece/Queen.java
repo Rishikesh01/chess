@@ -21,7 +21,11 @@ public class Queen extends Piece {
 
 
     public Queen(int piecePosition, Color pieceColor) {
-        super(piecePosition, pieceColor, PieceType.QUEEN);
+        super(piecePosition, pieceColor, PieceType.QUEEN,true);
+    }
+
+    public Queen(final int piecePosition,final Color pieceColor,final boolean isFirstMove) {
+        super(piecePosition, pieceColor, PieceType.QUEEN,isFirstMove);
     }
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {

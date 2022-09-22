@@ -21,8 +21,13 @@ public class Bishop extends Piece {
     private final static int[] CANDIDATE_MOVES_BISHOP = {-9, -7, 7, 9};
 
     public Bishop(int piecePosition, Color pieceColor) {
-        super(piecePosition, pieceColor,PieceType.BISHOP);
+        super(piecePosition, pieceColor,PieceType.BISHOP,true);
     }
+
+    public Bishop(int piecePosition, Color pieceColor,final boolean isFirstMove) {
+        super(piecePosition, pieceColor,PieceType.BISHOP,isFirstMove);
+    }
+
 
     private static boolean isFirstColumnExclusion(final int currentPos, final int offset) {
         return BoardUtils.FIRST_COLUMN[currentPos] && (offset == -9 || offset == 7);
