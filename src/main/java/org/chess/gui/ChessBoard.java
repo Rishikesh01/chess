@@ -10,6 +10,7 @@ import org.chess.player.MoveTransition;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -30,6 +31,10 @@ public class ChessBoard {
     private static final Dimension BOARDPANEL_DIMENTION = new Dimension(400, 350);
     private static final Dimension TILE_PANEL_DEMENTION = new Dimension(10, 10);
     private final Color lightTileColor = Color.decode("#FFFACD");
+
+    private final GameHistoryPanel gameHistoryPanel;
+
+    private final TakenPiecesPanel piecesPanel;
     private final Color darkTileColor = Color.decode("#593E1A");
     private final BoardPanel boardPanel;
     private final JFrame gameFrame;
@@ -47,9 +52,15 @@ public class ChessBoard {
         this.gameFrame.setJMenuBar(chessBoardMenuBar);
         this.gameFrame.setSize(OUTER_FRAME_DIMENSION);
         this.board = Board.standardBoard();
+        this.gameHistoryPanel = new GameHistoryPanel();
+        this.piecesPanel = new TakenPiecesPanel();
         this.boardPanel = new BoardPanel();
         this.boardDirection = BoardDirection.NORMAL;
+        this.highlightLegalMoves = true;
+        this.gameFrame.add(this.piecesPanel, BorderLayout.WEST);
         this.gameFrame.add(this.boardPanel, BorderLayout.CENTER);
+        this.gameFrame.add(this.gameHistoryPanel,BorderLayout.EAST);
+
         this.gameFrame.setVisible(true);
     }
 
@@ -145,6 +156,35 @@ public class ChessBoard {
             validate();
             repaint();
         }
+    }
+
+    public static class  MoveLog{
+        private final List<Move> moves;
+        MoveLog(){
+            this.moves = new ArrayList<>();
+        }
+        public List<Move> getMoves(){
+            return this.moves;
+        }
+
+        public void addMove(final Move move){
+            this.moves.add(move);
+        }
+
+        public int size(){
+       return     this.moves.size();
+        }
+        public void clear(){
+            this.moves.clear();
+        }
+
+        public Move removeMove(int index){
+            return this.moves.remove(index);
+        }
+        public boolean removedMove(final Move move){
+            return this.moves.remove(move);
+        }
+
     }
 
     private class TilePanel extends JPanel {

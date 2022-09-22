@@ -11,6 +11,7 @@ import org.chess.piece.Rook;
 public abstract class Move {
 
     public static final Move NULL_MOVE = new NullMove();
+    protected final boolean isFirstMove;
     final Board board;
     final Piece movedPiece;
     final int destCoordinate;
@@ -19,6 +20,14 @@ public abstract class Move {
         this.board = board;
         this.movedPiece = movedPiece;
         this.destCoordinate = destCoordinate;
+        this.isFirstMove = movedPiece.isFirstMove();
+    }
+
+    private Move(final Board board, final int destCoordinate) {
+        this.board = board;
+        this.destCoordinate = destCoordinate;
+        this.movedPiece = null;
+        this.isFirstMove = false;
     }
 
     @Override
@@ -26,6 +35,7 @@ public abstract class Move {
         int hash = 1;
         hash = 31 * hash + this.destCoordinate;
         hash = 31 * hash + this.movedPiece.hashCode();
+        hash = 31 * hash + this.movedPiece.getPiecePosition();
         return hash;
     }
 
@@ -79,7 +89,7 @@ public abstract class Move {
     }
 
     private int getCurrentCoordinate() {
-         return this.movedPiece.getPiecePosition();
+        return this.movedPiece.getPiecePosition();
     }
 
     public static class MajorMove extends Move {
@@ -88,6 +98,16 @@ public abstract class Move {
                          final Piece pieceMoved,
                          final int destinationCoordinate) {
             super(board, pieceMoved, destinationCoordinate);
+        }
+
+        @Override
+        public boolean equals(final Object obj){
+            return this ==obj || obj instanceof  MajorMove && super.equals(obj);
+        }
+
+        @Override
+        public  String toString(){
+            return  movedPiece.getPieceType().toString() + BoardUtils.getPostionAtCoordinate(this.destCoordinate);
         }
     }
 
@@ -252,7 +272,7 @@ public abstract class Move {
     public static class NullMove extends Move {
 
         public NullMove() {
-            super(null, null, -1);
+            super(null,  -1);
         }
 
         @Override

@@ -19,11 +19,12 @@ public abstract class Piece {
 
     private final int cachedHashCode;
 
-    Piece(final int piecePosition, final Color pieceColor,final PieceType pieceType,final boolean isFirstMove) {
+    Piece(final int piecePosition, final Color pieceColor, final PieceType pieceType, final boolean isFirstMove) {
         this.pieceColor = pieceColor;
         this.piecePosition = piecePosition;
         this.pieceType = pieceType;
         this.isFirstMove = isFirstMove;
+
         cachedHashCode = computeHashCode();
     }
 
@@ -73,4 +74,7 @@ public abstract class Piece {
         return this.cachedHashCode;
     }
 
+    public int getPieceValue() {
+        return this.pieceType.getPieceValue();
+    }
 }

@@ -42,7 +42,7 @@ public class King extends Piece {
         for (final int offSet : CANDIDATE_MOVES_COORDINATE) {
             final int candidateDestCoordinate = this.piecePosition + offSet;
 
-            if (isFirstColumnExclusion(this.piecePosition, offSet) || isFirstColumnExclusion(this.piecePosition, offSet)) {
+            if (isEightColumnExclusion(this.piecePosition, offSet) || isFirstColumnExclusion(this.piecePosition, offSet)) {
                 continue;
             }
             if (BoardUtils.isValidTileCoordinate(candidateDestCoordinate)) {

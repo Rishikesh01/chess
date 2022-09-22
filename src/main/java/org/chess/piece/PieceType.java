@@ -5,7 +5,7 @@ package org.chess.piece;
  * @project chess
  */
 public enum PieceType {
-    PAWN("P"){
+    PAWN("P",1){
         @Override
         public boolean isKing() {
             return false;
@@ -16,7 +16,7 @@ public enum PieceType {
             return false;
         }
     },
-    KNIGHT("H"){
+    KNIGHT("H",3){
         @Override
         public boolean isKing() {
             return false;
@@ -27,7 +27,7 @@ public enum PieceType {
             return false;
         }
     },
-    BISHOP("B"){
+    BISHOP("B",3){
         @Override
         public boolean isKing() {
             return false;
@@ -38,7 +38,7 @@ public enum PieceType {
             return false;
         }
     },
-    ROOK("R"){
+    ROOK("R",5){
         @Override
         public boolean isKing() {
             return false;
@@ -49,7 +49,7 @@ public enum PieceType {
            return  true;
         }
     },
-    QUEEN("Q"){
+    QUEEN("Q",9){
         @Override
         public boolean isKing() {
             return false;
@@ -60,7 +60,7 @@ public enum PieceType {
             return false;
         }
     },
-    KING("K"){
+    KING("K",10){
         @Override
         public boolean isKing() {
             return true;
@@ -73,10 +73,12 @@ public enum PieceType {
     };
 
     private final String pieceName;
+    private final int pieceValue;
 
     PieceType(
-            final String pieceName) {
+            final String pieceName, int pieceValue) {
         this.pieceName = pieceName;
+        this.pieceValue = pieceValue;
     }
 
 
@@ -86,6 +88,10 @@ public enum PieceType {
     }
 
     public abstract boolean isKing();
+
+    public int getPieceValue(){
+        return  this.pieceValue;
+    }
 
     public abstract boolean isRook();
 }
