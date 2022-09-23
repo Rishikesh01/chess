@@ -47,7 +47,7 @@ public class Pawn extends Piece {
                 final int behindCandidateDest = this.piecePosition + (this.pieceColor.getDirection() * BoardUtils.ROW_SIZE);
 
                 if (board.getTile(behindCandidateDest).isTileEmpty() && board.getTile(candidateDestCoordinate).isTileEmpty()) {
-                    legalMoves.add(new Move.MajorMove(board, this, candidateDestCoordinate));
+                    legalMoves.add(new Move.PawnJump(board, this, candidateDestCoordinate));
                 }
             } else if (offset == 7 &&
                     !((BoardUtils.EIGHTH_COLUMN[this.piecePosition] && this.pieceColor.isWhite() ||
@@ -56,7 +56,7 @@ public class Pawn extends Piece {
                 if (!board.getTile(candidateDestCoordinate).isTileEmpty()) {
                     final Piece pieceOnCandidate = board.getTile(candidateDestCoordinate).getPiece();
                     if (this.pieceColor != pieceOnCandidate.getPieceColor()) {
-                        legalMoves.add(new Move.MajorMove(board, this, candidateDestCoordinate));
+                        legalMoves.add(new Move.PawnAttackMove(board, this, candidateDestCoordinate,pieceOnCandidate));
                     }
                 }
             } else if (offset == 9 &&
@@ -65,7 +65,7 @@ public class Pawn extends Piece {
                 if (!board.getTile(candidateDestCoordinate).isTileEmpty()) {
                     final Piece pieceOnCandidate = board.getTile(candidateDestCoordinate).getPiece();
                     if (this.pieceColor != pieceOnCandidate.getPieceColor()) {
-                        legalMoves.add(new Move.MajorMove(board, this, candidateDestCoordinate));
+                        legalMoves.add(new Move.PawnAttackMove(board, this, candidateDestCoordinate,pieceOnCandidate));
                     }
                 }
             }

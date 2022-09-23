@@ -10,7 +10,6 @@ import org.chess.player.MoveTransition;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -34,11 +33,12 @@ public class ChessBoard {
 
     private final GameHistoryPanel gameHistoryPanel;
 
+    private final MoveLog moveLog;
     private final TakenPiecesPanel piecesPanel;
     private final Color darkTileColor = Color.decode("#593E1A");
     private final BoardPanel boardPanel;
     private final JFrame gameFrame;
-    private boolean highlightLegalMoves = false;
+    private boolean highlightLegalMoves;
     private BoardDirection boardDirection;
     private Board board;
     private Tile srcTile;
@@ -55,11 +55,12 @@ public class ChessBoard {
         this.gameHistoryPanel = new GameHistoryPanel();
         this.piecesPanel = new TakenPiecesPanel();
         this.boardPanel = new BoardPanel();
+        this.moveLog = new MoveLog();
         this.boardDirection = BoardDirection.NORMAL;
         this.highlightLegalMoves = true;
         this.gameFrame.add(this.piecesPanel, BorderLayout.WEST);
         this.gameFrame.add(this.boardPanel, BorderLayout.CENTER);
-        this.gameFrame.add(this.gameHistoryPanel,BorderLayout.EAST);
+        this.gameFrame.add(this.gameHistoryPanel, BorderLayout.EAST);
 
         this.gameFrame.setVisible(true);
     }
@@ -131,6 +132,39 @@ public class ChessBoard {
         abstract BoardDirection opposite();
     }
 
+    public static class MoveLog {
+        private final List<Move> moves;
+
+        MoveLog() {
+            this.moves = new ArrayList<>();
+        }
+
+        public List<Move> getMoves() {
+            return this.moves;
+        }
+
+        public void addMove(final Move move) {
+            this.moves.add(move);
+        }
+
+        public int size() {
+            return this.moves.size();
+        }
+
+        public void clear() {
+            this.moves.clear();
+        }
+
+        public Move removeMove(int index) {
+            return this.moves.remove(index);
+        }
+
+        public boolean removedMove(final Move move) {
+            return this.moves.remove(move);
+        }
+
+    }
+
     private class BoardPanel extends JPanel {
         final List<TilePanel> boardTiles;
 
@@ -156,35 +190,6 @@ public class ChessBoard {
             validate();
             repaint();
         }
-    }
-
-    public static class  MoveLog{
-        private final List<Move> moves;
-        MoveLog(){
-            this.moves = new ArrayList<>();
-        }
-        public List<Move> getMoves(){
-            return this.moves;
-        }
-
-        public void addMove(final Move move){
-            this.moves.add(move);
-        }
-
-        public int size(){
-       return     this.moves.size();
-        }
-        public void clear(){
-            this.moves.clear();
-        }
-
-        public Move removeMove(int index){
-            return this.moves.remove(index);
-        }
-        public boolean removedMove(final Move move){
-            return this.moves.remove(move);
-        }
-
     }
 
     private class TilePanel extends JPanel {
@@ -216,14 +221,17 @@ public class ChessBoard {
                             final MoveTransition transition = board.currentPlayer().makeMove(move);
                             if (transition.getMoveStatus().isDone()) {
                                 board = transition.getTransitionBoard();
-                                System.out.println(board.currentPlayer().getColor());
-
+                                moveLog.addMove(move);
                             }
                             srcTile = null;
                             destTile = null;
                             humanMovedPiece = null;
                         }
-                        SwingUtilities.invokeLater(() -> boardPanel.drawBoard(board));
+                        SwingUtilities.invokeLater(() -> {
+                            gameHistoryPanel.redo(board, moveLog);
+                            piecesPanel.redo(moveLog);
+                            boardPanel.drawBoard(board);
+                        });
                     }
                 }
 

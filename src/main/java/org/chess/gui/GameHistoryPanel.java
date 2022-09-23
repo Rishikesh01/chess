@@ -47,9 +47,10 @@ public class GameHistoryPanel extends JPanel {
         if (moveLog.getMoves().size() > 0) {
             final Move move = moveLog.getMoves().get(moveLog.size() - 1);
             final String moveText = move.toString();
-
             if (move.getMovedPiece().getPieceColor().isWhite()) {
-                this.model.setValueAt(moveText + calcuateCheckAndCheckMate(board), currentRow - 1, 1);
+                this.model.setValueAt(moveText + calcuateCheckAndCheckMate(board), currentRow , 0);
+            }else if (move.getMovedPiece().getPieceColor().isBlack()){
+                this.model.setValueAt(moveText+calcuateCheckAndCheckMate(board),currentRow-1,1);
             }
         }
         final JScrollBar vertical = scrollPane.getVerticalScrollBar();
@@ -112,6 +113,7 @@ public class GameHistoryPanel extends JPanel {
             }
             if (column == 0) {
                 currentRow.setWhiteMoves((String) value);
+                fireTableRowsInserted(row,row);
             } else if (column == 1) {
                 currentRow.setBlackMoves((String) value);
                 fireTableCellUpdated(row, column);
