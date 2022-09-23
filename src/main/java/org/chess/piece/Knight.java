@@ -52,7 +52,7 @@ public class Knight extends Piece {
                     final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                     final Color pieceColor = pieceAtDestination.getPieceColor(); //Checks target piece alliance
                     if (this.pieceColor != pieceColor) {
-                        legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
+                        legalMoves.add(new Move.MajorAttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
                     }
                 }
             }

@@ -54,7 +54,7 @@ public class Rook extends Piece {
                         final Piece pieceDest = destCoordinate.getPiece();
                         final Color color = pieceDest.getPieceColor();
                         if (this.pieceColor != color) {
-                            legalMoves.add(new Move.AttackMove(board, this, candidateDestCoordinate, pieceDest));
+                            legalMoves.add(new Move.MajorAttackMove(board, this, candidateDestCoordinate, pieceDest));
                         }
                         break;
                     }

@@ -25,16 +25,23 @@ public class Board {
     private final BlackPlayer blackPlayer;
     private final Player currentPlayer;
 
+    private final Pawn enPassantPawn;
+
     private Board(Builder builder) {
         this.gameBoard = createGameBoard(builder);
         this.whitePieces = calculateActivePieces(this.gameBoard, Color.WHITE);
         this.blackPieces = calculateActivePieces(this.gameBoard, Color.BLACK);
+        this.enPassantPawn = builder.pawnEnPassant;
         final Collection<Move> whiteLegalMoves = calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackLegalMoves = calculateLegalMoves(this.blackPieces);
         this.whitePlayer = new WhitePlayer(this, whiteLegalMoves, blackLegalMoves);
         this.blackPlayer = new BlackPlayer(this,whiteLegalMoves,blackLegalMoves);
         this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
 
+    }
+
+    public Pawn getEnPassantPawn(){
+        return this.enPassantPawn;
     }
 
     private static Collection<Piece> calculateActivePieces(List<Tile> gameBoard, Color color) {
