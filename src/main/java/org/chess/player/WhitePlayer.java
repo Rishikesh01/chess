@@ -39,9 +39,9 @@ public class WhitePlayer extends Player {
     @Override
     public Collection<Move> calculateKingCastles(Collection<Move> playerLegalMoves, Collection<Move> opponentsLegalMoves) {
         final List<Move> kingCastles = new ArrayList<>();
-        if (this.playerKing.isFirstMove() && this.isInCheck()) {
+        if (this.playerKing.isFirstMove() && !this.isInCheck()) {
             if (this.board.getTile(61).isTileEmpty() && this.board.getTile(62).isTileEmpty()) {
-                final Tile rookTile = this.board.getTile(63);
+                final Tile rookTile = this.board.getTile(62);
                 if (!rookTile.isTileEmpty() && rookTile.getPiece().isFirstMove()) {
                     if (Player.calculateAttackOnTile(61, opponentsLegalMoves).isEmpty() &&
                             Player.calculateAttackOnTile(21, opponentsLegalMoves).isEmpty() && rookTile.getPiece().getPieceType().isRook()) {
