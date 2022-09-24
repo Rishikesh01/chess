@@ -1,5 +1,6 @@
 package org.chess;
 
+import org.chess.board.BoardUtils;
 import org.chess.player.Player;
 
 /**
@@ -29,6 +30,11 @@ public enum Color {
         }
 
         @Override
+        public boolean isPawnPromotionSquare(int pos) {
+            return BoardUtils.FIRST_ROW[pos];
+        }
+
+        @Override
         public Player choosePlayer(Player whitePlayer, Player blackPlayer) {
             return blackPlayer;
         }
@@ -55,6 +61,11 @@ public enum Color {
         }
 
         @Override
+        public boolean isPawnPromotionSquare(int pos) {
+            return BoardUtils.EIGHT_ROW[pos];
+        }
+
+        @Override
         public Player choosePlayer(Player whitePlayer, Player blackPlayer) {
             return whitePlayer;
         }
@@ -67,6 +78,9 @@ public enum Color {
     public abstract boolean isWhite();
 
     public abstract boolean isBlack();
+
+    public abstract boolean isPawnPromotionSquare(int pos);
+
 
     public abstract Player choosePlayer(Player whitePlayer, Player blackPlayer);
 }
